@@ -1,0 +1,26 @@
+{
+  "globalDependencies": {
+    "async": "registry:dt/async#1.4.2+20160602152629",
+    "bcrypt": "registry:dt/bcrypt#0.0.0+20160316155526",
+    "body-parser": "registry:dt/body-parser#0.0.0+20160317120654",
+    "cookie-parser": "registry:dt/cookie-parser#1.3.4+20160316155526",
+    "express": "registry:dt/express#4.0.0+20160317120654",
+    "express-serve-static-core": "registry:dt/express-serve-static-core#0.0.0+20160602151406",
+    "express-validator": "registry:dt/express-validator#2.9.0+20160412125233",
+    "mocha": "registry:dt/mocha#2.2.5+20160317120654",
+    "mongodb": "registry:dt/mongodb#2.1.0+20160602142941",
+    "morgan": "registry:dt/morgan#1.7.0+20160524142355",
+    "node": "registry:env/node#4.0.0+20160507210304",
+    "serve-static": "registry:dt/serve-static#0.0.0+20160606155157",
+    "should": "registry:dt/should#8.1.1+20160521152556"
+  },
+  "dependencies": {
+    "jsonwebtoken": "registry:npm/jsonwebtoken#5.5.4+20160208220328",
+    "mongoose": "registry:npm/mongoose#4.3.5+20160610145311"
+  },
+  "globalDevDependencies": {
+    "chai": "registry:dt/chai#3.4.0+20160317120654",
+    "superagent": "registry:dt/superagent#1.4.0+20160317120654",
+    "supertest": "registry:dt/supertest#1.1.0+20160317120654"
+  }
+}
