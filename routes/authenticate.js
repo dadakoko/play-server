@@ -45,7 +45,7 @@ var AuthenticateRouter;
                 });
             }
             else {
-                jwt.sign({ userId: user._id }, config_1.secretTokenKey, { expiresIn: 86400000 }, (errorOrToken) => {
+                jwt.sign({ userId: user._id, username: user.name }, config_1.secretTokenKey, { expiresIn: 86400000 }, (errorOrToken) => {
                     // console.log('token signed ');
                     // console.log('errorOrToken -> ', errorOrToken);
                     // - NOTE: at this point we're borderline pyramid of death and we should consider using async

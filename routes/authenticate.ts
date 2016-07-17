@@ -49,7 +49,7 @@ namespace AuthenticateRouter {
           });
         } else {
           jwt.sign(
-            {userId: user._id},
+            {userId: user._id,username:user.name},
             secretTokenKey,
             {expiresIn: 86400000},
             (errorOrToken: Error|string): void => {
