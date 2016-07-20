@@ -1,3 +1,6 @@
+.idea/
+npm-debug.log
+*.env
 typings/
 node_modules/
 bin/

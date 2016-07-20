@@ -4,12 +4,44 @@ const jsonApiSerializer = require('jsonapi-serializer');
 const async = require('async');
 const video_1 = require('../models/video');
 const video_serializer_1 = require('../serializers/video-serializer');
+const authentication_1 = require('../authentication');
+var gcloud = require('gcloud');
+var format = require('util').format;
+var multer = require('multer');
 /**
  * Created by leojpod on 3/2/16.
  */
 var VideoRouter;
 (function (VideoRouter) {
     'use strict';
+    // [START config]
+    // Multer is required to process file uploads and make them available via
+    // req.files.
+    var multer = require('multer')({
+        inMemory: true,
+        fileSize: 5 * 1024 * 1024 * 1024 // no larger than 5mb, you can change as needed.
+    });
+    // var mstorage = multer.diskStorage({ //multers disk storage settings
+    //     destination: function (req, file, cb) {
+    //         cb(null, './uploads/')
+    //     },
+    //     filename: function (req, file, cb) {
+    //         var datetimestamp = Date.now();
+    //         cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length -1])
+    //     }
+    // });
+    // var upload = multer({ //multer settings
+    //     storage: mstorage
+    // }).single('file');
+    // The following environment variables are set by app.yaml when running on GAE,
+    // but will need to be manually set when running locally.
+    // The storage client is used to communicate with Google Cloud Storage
+    var storage = gcloud.storage({
+        projectId: 'play-1376'
+    });
+    // A bucket is a container for objects (files).
+    var bucket = storage.bucket('play-video');
+    // [END config]
     VideoRouter.router = express_1.Router();
     VideoRouter.router.get('/', function (req, res, next) {
         function handleVideos(videos) {
@@ -45,7 +77,7 @@ var VideoRouter;
             });
         }
     });
-    //router.use(Authentication.authenticatedRoute);
+    VideoRouter.router.use(authentication_1.Authentication.authenticatedRoute);
     VideoRouter.router.post('/', function (req, res, next) {
         // validate the incoming data:
         console.log('creating a video');
@@ -77,37 +109,33 @@ var VideoRouter;
                 res.status(200).json(video_serializer_1.videoSerializer.serialize(mongooseVideo));
             });
         });
-        /* new jsonApiSerializer.Deserializer({
-           users: {
-             valueForRelationship: function (relationship: any): number {
-               return relationship.id;
-             }
-           }
-         }).deserialize(req.body, function (err: Error, video: IVideo): void {
-           if (err) {
-             res.status(400).json({errors: 'malformed JSON-API resource'});
-             return;
-           }
-           console.log('deserialized video -> ', video);
-           //video.author_id = video.author as String;
-           delete(video.id);
-           // delete(video.author);
-           let insertedVideo: IVideo;
-           console.log('making the insertion');
-           req.db.collection('videos')
-             .insertOne(video, (insertErr, report) => {
-               if (insertErr) {
-                 next(insertErr);
-                 return;
-               }
-               if (!report.insertedId) {
-                 next(new Error('the video creation process failed'));
-                 return;
-               }
-               insertedVideo = report.ops[0];
-               res.status(200).json(videoSerializer.serialize(videoSerializer));
-             });
-         });*/
+    });
+    // upload(req,res,function(err){
+    //     if(err){
+    //         res.json({error_code:1,err_desc:err});
+    //         return;
+    //     }
+    //     res.json({error_code:0,err_desc:null});
+    // });
+    // [START process]
+    // Process the file upload and upload to Google Cloud Storage.
+    VideoRouter.router.post('/upload', multer.single('file'), function (req, res, next) {
+        console.warn('were are we ?');
+        if (!req.file) {
+            return res.status(400).send('No file uploaded.');
+        }
+        // Create a new blob in the bucket and upload the file data.
+        var blob = bucket.file(req.file.originalname);
+        var blobStream = blob.createWriteStream();
+        blobStream.on('error', function (err) {
+            return next(err);
+        });
+        blobStream.on('finish', function () {
+            // The public URL can be used to directly access the file via HTTP.
+            var publicUrl = format('https://storage.googleapis.com/%s/%s', bucket.name, blob.name);
+            res.status(200).send(publicUrl);
+        });
+        blobStream.end(req.file.buffer);
     });
 })(VideoRouter || (VideoRouter = {}));
 module.exports = VideoRouter;
