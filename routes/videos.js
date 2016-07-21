@@ -4,7 +4,6 @@ const jsonApiSerializer = require('jsonapi-serializer');
 const async = require('async');
 const video_1 = require('../models/video');
 const video_serializer_1 = require('../serializers/video-serializer');
-const authentication_1 = require('../authentication');
 var gcloud = require('gcloud');
 var format = require('util').format;
 var multer = require('multer');
@@ -77,7 +76,7 @@ var VideoRouter;
             });
         }
     });
-    VideoRouter.router.use(authentication_1.Authentication.authenticatedRoute);
+    //router.use(Authentication.authenticatedRoute);
     VideoRouter.router.post('/', function (req, res, next) {
         // validate the incoming data:
         console.log('creating a video');
@@ -120,7 +119,7 @@ var VideoRouter;
     // [START process]
     // Process the file upload and upload to Google Cloud Storage.
     VideoRouter.router.post('/upload', multer.single('file'), function (req, res, next) {
-        console.warn('were are we ?');
+        console.log("body: ", req.body);
         if (!req.file) {
             return res.status(400).send('No file uploaded.');
         }

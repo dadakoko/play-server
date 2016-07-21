@@ -89,7 +89,7 @@ namespace VideoRouter {
         }
     });
 
-    router.use(Authentication.authenticatedRoute);
+    //router.use(Authentication.authenticatedRoute);
 
     router.post('/', function (req:IRequest, res:Response, next:NextFunction):void {
         // validate the incoming data:
@@ -139,7 +139,7 @@ namespace VideoRouter {
     // [START process]
     // Process the file upload and upload to Google Cloud Storage.
     router.post('/upload', multer.single('file'), function (req, res, next) {
-        console.warn('were are we ?');
+        console.log("body: ",req.body);
         if (!req.file) {
             return res.status(400).send('No file uploaded.');
         }

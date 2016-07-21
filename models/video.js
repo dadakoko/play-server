@@ -8,7 +8,7 @@ var Video;
 (function (Video_1) {
     'use strict';
     const videoSchema = new mongoose_1.Schema({
-        title: { type: String, required: true, unique: true },
+        title: { type: String, required: true },
         url: { type: String, required: true, unique: true },
         author: { type: mongoose_1.Schema.Types.ObjectId, ref: 'User' }
     });

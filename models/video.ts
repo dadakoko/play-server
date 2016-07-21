@@ -20,7 +20,7 @@ namespace Video {
   }
 
   const videoSchema: Schema = new Schema({
-    title: {type: String, required: true, unique: true},
+    title: {type: String, required: true},
     url: {type: String, required: true, unique: true},
     author: {type: Schema.Types.ObjectId, ref: 'User'}
   });
