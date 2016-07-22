@@ -15,12 +15,16 @@ namespace Video {
   export interface IVideo extends Document {
     // author_id?: string;
     author?: IUser| ObjectID;
+    artist?: string;
     title: string;
+    description?: string;
     url: string;
   }
 
   const videoSchema: Schema = new Schema({
     title: {type: String, required: true},
+    artist: {type: String},
+    description: {type: String},
     url: {type: String, required: true, unique: true},
     author: {type: Schema.Types.ObjectId, ref: 'User'}
   });

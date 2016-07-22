@@ -7,6 +7,7 @@ const video_serializer_1 = require('../serializers/video-serializer');
 var gcloud = require('gcloud');
 var format = require('util').format;
 var multer = require('multer');
+var ffmpeg = require('fluent-ffmpeg');
 /**
  * Created by leojpod on 3/2/16.
  */
@@ -16,22 +17,25 @@ var VideoRouter;
     // [START config]
     // Multer is required to process file uploads and make them available via
     // req.files.
-    var multer = require('multer')({
-        inMemory: true,
-        fileSize: 5 * 1024 * 1024 * 1024 // no larger than 5mb, you can change as needed.
-    });
-    // var mstorage = multer.diskStorage({ //multers disk storage settings
-    //     destination: function (req, file, cb) {
-    //         cb(null, './uploads/')
-    //     },
-    //     filename: function (req, file, cb) {
-    //         var datetimestamp = Date.now();
-    //         cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length -1])
-    //     }
+    // var multer = require('multer')({
+    //     inMemory: true,
+    //     fileSize: 5 * 1024 * 1024 * 1024 // no larger than 5mb, you can change as needed.
     // });
-    // var upload = multer({ //multer settings
+    // var multer = multer({ //multer settings
     //     storage: mstorage
-    // }).single('file');
+    // });
+    var mstorage = require('multer').diskStorage({
+        destination: function (req, file, cb) {
+            cb(null, '../uploads/');
+        },
+        filename: function (req, file, cb) {
+            var datetimestamp = Date.now();
+            cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length - 1]);
+        }
+    });
+    var multer = require('multer')({
+        storage: mstorage
+    });
     // The following environment variables are set by app.yaml when running on GAE,
     // but will need to be manually set when running locally.
     // The storage client is used to communicate with Google Cloud Storage
@@ -89,6 +93,15 @@ var VideoRouter;
             res.status(400).json({ errors: 'malformed JSON-API resource' });
             return;
         }
+        // ffmpeg("../uploads/file-1469190463925.mov")
+        //     .inputFormat('mov')
+        //     .screenshots({
+        //         count: 1,
+        //         timestamps: [1],
+        //         filename: 'thumbnail-at-%s-seconds.png',
+        //         folder: '../uploads/',
+        //         size: '320x240'
+        //     });
         console.log('deserializing...');
         new jsonApiSerializer.Deserializer().deserialize(req.body, (error, video) => {
             if (error) {
@@ -109,32 +122,48 @@ var VideoRouter;
             });
         });
     });
-    // upload(req,res,function(err){
-    //     if(err){
-    //         res.json({error_code:1,err_desc:err});
-    //         return;
-    //     }
-    //     res.json({error_code:0,err_desc:null});
-    // });
     // [START process]
     // Process the file upload and upload to Google Cloud Storage.
     VideoRouter.router.post('/upload', multer.single('file'), function (req, res, next) {
+        // ffmpeg(req.file.originalname)
+        //     .inputFormat('mov')
+        //     .screenshots({
+        //         timestamps: [1],
+        //         filename: 'thumbnail-at-%s-seconds.png',
+        //         folder: '../uploads/',
+        //         size: '320x240'
+        //     });
         console.log("body: ", req.body);
         if (!req.file) {
             return res.status(400).send('No file uploaded.');
         }
-        // Create a new blob in the bucket and upload the file data.
+        // // Create a new blob in the bucket and upload the file data.
         var blob = bucket.file(req.file.originalname);
-        var blobStream = blob.createWriteStream();
-        blobStream.on('error', function (err) {
-            return next(err);
+        // var blobStream = blob.createWriteStream();
+        //
+        // blobStream.on('error', function (err) {
+        //     return next(err);
+        // });
+        //
+        // blobStream.on('finish', () => {
+        //     // The public URL can be used to directly access the file via HTTP.
+        //     var publicUrl = format(
+        //         'https://storage.googleapis.com/%s/%s',
+        //         bucket.name, blob.name);
+        //
+        //
+        //
+        //     res.status(200).send(publicUrl);
+        // });
+        //
+        // blobStream.end(req.file.buffer);
+        // Upload a local file to a new file to be created in your bucket.
+        bucket.upload(req.file.path, function (err, file) {
+            if (!err) {
+                var publicUrl = format('https://storage.googleapis.com/%s/%s', bucket.name, req.file.filename);
+                res.status(200).send(publicUrl);
+            }
         });
-        blobStream.on('finish', function () {
-            // The public URL can be used to directly access the file via HTTP.
-            var publicUrl = format('https://storage.googleapis.com/%s/%s', bucket.name, blob.name);
-            res.status(200).send(publicUrl);
-        });
-        blobStream.end(req.file.buffer);
     });
 })(VideoRouter || (VideoRouter = {}));
 module.exports = VideoRouter;
