@@ -93,15 +93,6 @@ var VideoRouter;
             res.status(400).json({ errors: 'malformed JSON-API resource' });
             return;
         }
-        // ffmpeg("../uploads/file-1469190463925.mov")
-        //     .inputFormat('mov')
-        //     .screenshots({
-        //         count: 1,
-        //         timestamps: [1],
-        //         filename: 'thumbnail-at-%s-seconds.png',
-        //         folder: '../uploads/',
-        //         size: '320x240'
-        //     });
         console.log('deserializing...');
         new jsonApiSerializer.Deserializer().deserialize(req.body, (error, video) => {
             if (error) {
@@ -125,38 +116,19 @@ var VideoRouter;
     // [START process]
     // Process the file upload and upload to Google Cloud Storage.
     VideoRouter.router.post('/upload', multer.single('file'), function (req, res, next) {
-        // ffmpeg(req.file.originalname)
-        //     .inputFormat('mov')
-        //     .screenshots({
-        //         timestamps: [1],
-        //         filename: 'thumbnail-at-%s-seconds.png',
-        //         folder: '../uploads/',
-        //         size: '320x240'
-        //     });
         console.log("body: ", req.body);
         if (!req.file) {
             return res.status(400).send('No file uploaded.');
         }
-        // // Create a new blob in the bucket and upload the file data.
-        var blob = bucket.file(req.file.originalname);
-        // var blobStream = blob.createWriteStream();
-        //
-        // blobStream.on('error', function (err) {
-        //     return next(err);
-        // });
-        //
-        // blobStream.on('finish', () => {
-        //     // The public URL can be used to directly access the file via HTTP.
-        //     var publicUrl = format(
-        //         'https://storage.googleapis.com/%s/%s',
-        //         bucket.name, blob.name);
-        //
-        //
-        //
-        //     res.status(200).send(publicUrl);
-        // });
-        //
-        // blobStream.end(req.file.buffer);
+        ffmpeg(req.file.path)
+            .inputFormat('mov')
+            .screenshots({
+            count: 1,
+            timestamps: [0],
+            filename: req.file.filename + '-thumbnail-%s-sec.png',
+            folder: '../uploads/',
+            size: '320x240'
+        });
         // Upload a local file to a new file to be created in your bucket.
         bucket.upload(req.file.path, function (err, file) {
             if (!err) {
