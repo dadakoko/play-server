@@ -143,7 +143,7 @@ var VideoRouter;
                 if (err)
                     return next(err);
                 //Tell the user about the great success
-                res.status(200).send(JSON.stringify(publicUrl));
+                res.status(200).send(JSON.stringify(publicUrl.sort()));
             });
             // bucket.upload(req.file.path.split('.mov')[0] + '.png', function (err, file) {
             //     if (!err) {

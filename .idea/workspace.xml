@@ -3,15 +3,15 @@
   <component name="ChangeListManager">
     <list default="true" id="a9c4c164-0f87-477d-8634-58a014158119" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/user.js" afterPath="$PROJECT_DIR$/models/user.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/user.js.map" afterPath="$PROJECT_DIR$/models/user.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/user.ts" afterPath="$PROJECT_DIR$/models/user.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/video.js" afterPath="$PROJECT_DIR$/models/video.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/video.js.map" afterPath="$PROJECT_DIR$/models/video.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/video.ts" afterPath="$PROJECT_DIR$/models/video.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/videos.js" afterPath="$PROJECT_DIR$/routes/videos.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/videos.js.map" afterPath="$PROJECT_DIR$/routes/videos.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/videos.ts" afterPath="$PROJECT_DIR$/routes/videos.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/serializers/video-serializer.js" afterPath="$PROJECT_DIR$/serializers/video-serializer.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/serializers/video-serializer.js.map" afterPath="$PROJECT_DIR$/serializers/video-serializer.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/serializers/video-serializer.ts" afterPath="$PROJECT_DIR$/serializers/video-serializer.ts" />
     </list>
     <ignored path="play.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -55,8 +55,8 @@
       <file leaf-file-name="videos.ts" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routes/videos.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="161">
-              <caret line="73" column="16" selection-start-line="73" selection-start-column="16" selection-end-line="73" selection-end-column="16" />
+            <state relative-caret-position="365">
+              <caret line="175" column="72" selection-start-line="175" selection-start-column="72" selection-end-line="175" selection-end-column="72" />
               <folding>
                 <element signature="e#109#146#0" expanded="true" />
               </folding>
@@ -67,8 +67,8 @@
       <file leaf-file-name="video.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/models/video.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="230">
-              <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+            <state relative-caret-position="245">
+              <caret line="30" column="62" selection-start-line="30" selection-start-column="62" selection-end-line="30" selection-end-column="62" />
               <folding />
             </state>
           </provider>
@@ -84,6 +84,16 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="user-serializer.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/serializers/user-serializer.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="135">
+              <caret line="11" column="5" selection-start-line="11" selection-start-column="5" selection-end-line="11" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="users.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/users.ts">
           <provider selected="true" editor-type-id="text-editor">
@@ -94,31 +104,21 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="user.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/models/user.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="270">
+              <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="authenticate.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/authenticate.ts">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="630">
               <caret line="49" column="16" selection-start-line="49" selection-start-column="16" selection-end-line="49" selection-end-column="16" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="app.yaml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app.yaml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="20" column="35" selection-start-line="20" selection-start-column="35" selection-end-line="20" selection-end-column="35" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="user.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/models/user.ts">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="32" column="50" selection-start-line="32" selection-start-column="50" selection-end-line="32" selection-end-column="50" />
               <folding />
             </state>
           </provider>
@@ -146,7 +146,6 @@
         <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/authentication.ts" />
         <option value="$PROJECT_DIR$/config.ts" />
-        <option value="$PROJECT_DIR$/models/user.ts" />
         <option value="$PROJECT_DIR$/models/poll.ts" />
         <option value="$PROJECT_DIR$/routes/polls.ts" />
         <option value="$PROJECT_DIR$/serializers/poll-serializer.ts" />
@@ -155,9 +154,10 @@
         <option value="$PROJECT_DIR$/routes/authenticate.ts" />
         <option value="$PROJECT_DIR$/app.yaml" />
         <option value="$PROJECT_DIR$/package.json" />
-        <option value="$PROJECT_DIR$/routes/videos.ts" />
-        <option value="$PROJECT_DIR$/models/video.ts" />
         <option value="$PROJECT_DIR$/serializers/video-serializer.ts" />
+        <option value="$PROJECT_DIR$/models/user.ts" />
+        <option value="$PROJECT_DIR$/models/video.ts" />
+        <option value="$PROJECT_DIR$/routes/videos.ts" />
       </list>
     </option>
   </component>
@@ -331,24 +331,6 @@
               <option name="myItemId" value="models" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="video.ts" />
-              <option name="myItemType" value="com.intellij.lang.typescript.compiler.ui.projectView.TypeScriptNestingTreeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="play" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="play" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="models" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -467,16 +449,16 @@
       <workItem from="1468320518788" duration="2028000" />
       <workItem from="1468349194740" duration="1157000" />
       <workItem from="1468351879490" duration="45858000" />
-      <workItem from="1469187860091" duration="14272000" />
+      <workItem from="1469187860091" duration="14900000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="63315000" />
+    <option name="totallyTimeSpent" value="63943000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15856236" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -524,11 +506,6 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/routes/videos.ts</url>
-          <line>101</line>
-          <option name="timeStamp" value="10" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/routes/videos.ts</url>
           <line>124</line>
           <option name="timeStamp" value="12" />
         </line-breakpoint>
@@ -553,11 +530,6 @@
           <option name="timeStamp" value="25" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/routes/videos.ts</url>
-          <line>88</line>
-          <option name="timeStamp" value="29" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/routes/authenticate.ts</url>
           <line>51</line>
           <option name="timeStamp" value="31" />
@@ -566,11 +538,6 @@
           <url>file://$PROJECT_DIR$/routes/authenticate.ts</url>
           <line>66</line>
           <option name="timeStamp" value="33" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/routes/videos.ts</url>
-          <line>92</line>
-          <option name="timeStamp" value="34" />
         </line-breakpoint>
       </breakpoints>
       <option name="time" value="56" />
@@ -780,13 +747,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/serializers/user-serializer.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="5" selection-start-line="11" selection-start-column="5" selection-end-line="11" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/typings.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -821,14 +781,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/user.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="32" column="50" selection-start-line="32" selection-start-column="50" selection-end-line="32" selection-end-column="50" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -896,14 +848,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/video.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/serializers/video-serializer.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
@@ -912,10 +856,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/serializers/user-serializer.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="11" column="5" selection-start-line="11" selection-start-column="5" selection-end-line="11" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/user.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/video.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="245">
+          <caret line="30" column="62" selection-start-line="30" selection-start-column="62" selection-end-line="30" selection-end-column="62" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/routes/videos.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="73" column="16" selection-start-line="73" selection-start-column="16" selection-end-line="73" selection-end-column="16" />
+        <state relative-caret-position="365">
+          <caret line="175" column="72" selection-start-line="175" selection-start-column="72" selection-end-line="175" selection-end-column="72" />
           <folding>
             <element signature="e#109#146#0" expanded="true" />
           </folding>

@@ -23,12 +23,12 @@ namespace Video {
   }
 
   const videoSchema: Schema = new Schema({
-    title: {type: String, required: true},
+    author: {type: Schema.Types.ObjectId, ref: 'User'},
     artist: {type: String},
+    title: {type: String, required: true},
     description: {type: String},
     videourl: {type: String, required: true, unique: true},
-    thumbnailurl: {type: String, required: true, unique: true},
-    author: {type: Schema.Types.ObjectId, ref: 'User'}
+    thumbnailurl: {type: String, required: true, unique: true}
   });
 
   videoSchema.static('findAll', function (cb: {(err: Error, videos: IVideo[]): void}): Promise<IVideo[]> {

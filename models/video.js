@@ -8,12 +8,12 @@ var Video;
 (function (Video_1) {
     'use strict';
     const videoSchema = new mongoose_1.Schema({
-        title: { type: String, required: true },
+        author: { type: mongoose_1.Schema.Types.ObjectId, ref: 'User' },
         artist: { type: String },
+        title: { type: String, required: true },
         description: { type: String },
         videourl: { type: String, required: true, unique: true },
-        thumbnailurl: { type: String, required: true, unique: true },
-        author: { type: mongoose_1.Schema.Types.ObjectId, ref: 'User' }
+        thumbnailurl: { type: String, required: true, unique: true }
     });
     videoSchema.static('findAll', function (cb) {
         return this.find(cb);

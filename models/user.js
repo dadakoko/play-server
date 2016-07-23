@@ -12,8 +12,8 @@ var User;
 (function (User_1) {
     'use strict';
     const userSchema = new mongoose_1.Schema({
-        email: { type: String, required: true, unique: true },
         name: { type: String, required: true, unique: true },
+        email: { type: String, required: true, unique: true },
         // we don't want the password to be fetched by default
         password: { type: String, required: true, select: false }
     });
