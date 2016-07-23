@@ -38,13 +38,12 @@ namespace VideoRouter {
         },
         filename: function (req, file, cb) {
             var datetimestamp = Date.now();
-            cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length -1])
+            cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length - 1])
         }
     });
     var multer = require('multer')({ //multer settings
         storage: mstorage
     });
-
 
 
     // The following environment variables are set by app.yaml when running on GAE,
@@ -103,7 +102,8 @@ namespace VideoRouter {
         console.log('creating a video');
         req.checkBody('data.type', 'not a video record').equals('videos');
         req.checkBody('data.attributes.title', 'missing').len(1);
-        req.checkBody('data.attributes.url', 'missing').notEmpty();
+        req.checkBody('data.attributes.videourl', 'missing').notEmpty();
+        req.checkBody('data.attributes.thumbnailurl', 'missing').notEmpty();
         req.checkBody('data.attributes', 'missing').notEmpty();
 
         let errors:Dictionary<any> = req.validationErrors();
@@ -142,7 +142,7 @@ namespace VideoRouter {
     router.post('/upload', multer.single('file'), function (req, res, next) {
 
 
-        console.log("body: ",req.body);
+        console.log("body: ", req.body);
         if (!req.file) {
             return res.status(400).send('No file uploaded.');
         }
@@ -152,21 +152,52 @@ namespace VideoRouter {
             .screenshots({
                 count: 1,
                 timestamps: [0],
-                filename: req.file.filename+'-thumbnail-%s-sec.png',
+                filename: req.file.path.split('.mov')[0] + '.png',
                 folder: '../uploads/',
                 size: '320x240'
-            });
+            }).on('end', function () {
+            console.log('Screenshots taken');
+
+            let filestoUpload = [req.file.path.split('.mov')[0] + '.png', req.file.path];
+            var publicUrl:string[] = [];
+            //use async foreach here
+            async.forEach(filestoUpload,
+                (file,callback)=>bucket.upload(file, function (err) {
+                    if (!err) {
+                        publicUrl.push(format(
+                            'https://storage.googleapis.com/%s/%s',
+                            bucket.name, file.split('../uploads/')[1]));
+                    }
+                    callback();
+                }),
+                function (err) {
+                    if (err) return next(err);
+                    //Tell the user about the great success
+                    res.status(200).send(JSON.stringify(publicUrl));
+                });
+
+            // bucket.upload(req.file.path.split('.mov')[0] + '.png', function (err, file) {
+            //     if (!err) {
+            //         var publicUrl = format(
+            //             'https://storage.googleapis.com/%s/%s',
+            //             bucket.name, req.file.filename.split('.mov')[0] + '.png');
+            //
+            //         res.status(200).send(publicUrl);
+            //     }
+            // });
+        });
 
         // Upload a local file to a new file to be created in your bucket.
-        bucket.upload(req.file.path, function(err, file) {
-            if (!err) {
-                var publicUrl = format(
-                    'https://storage.googleapis.com/%s/%s',
-                    bucket.name, req.file.filename);
 
-                res.status(200).send(publicUrl);
-            }
-        });
+        // bucket.upload(req.file.path, function(err, file) {
+        //     if (!err) {
+        //         var publicUrl = format(
+        //             'https://storage.googleapis.com/%s/%s',
+        //             bucket.name, req.file.filename);
+        //
+        //         res.status(200).send(publicUrl);
+        //     }
+        // });
 
 
     });

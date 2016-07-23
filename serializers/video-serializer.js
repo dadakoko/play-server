@@ -7,7 +7,7 @@ var VideoSerializer;
 (function (VideoSerializer) {
     'use strict';
     VideoSerializer.videoSerializer = new jsonApiSerializer.Serializer('videos', {
-        attributes: ['title', 'url', 'author'],
+        attributes: ['title', 'videourl', 'thumbnailurl', 'author'],
         author: {
             attributes: ['name', 'email'],
             ref: '_id'

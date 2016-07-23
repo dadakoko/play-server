@@ -7,7 +7,7 @@ namespace VideoSerializer {
   'use strict';
 
   export const videoSerializer: jsonApiSerializer.Serializer = new jsonApiSerializer.Serializer('videos', {
-    attributes: ['title', 'url', 'author'],
+    attributes: ['title', 'videourl', 'thumbnailurl', 'author'],
     author: {
       attributes: ['name', 'email'],
       ref: '_id'

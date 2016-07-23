@@ -11,7 +11,8 @@ var Video;
         title: { type: String, required: true },
         artist: { type: String },
         description: { type: String },
-        url: { type: String, required: true, unique: true },
+        videourl: { type: String, required: true, unique: true },
+        thumbnailurl: { type: String, required: true, unique: true },
         author: { type: mongoose_1.Schema.Types.ObjectId, ref: 'User' }
     });
     videoSchema.static('findAll', function (cb) {

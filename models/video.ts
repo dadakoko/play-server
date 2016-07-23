@@ -18,14 +18,16 @@ namespace Video {
     artist?: string;
     title: string;
     description?: string;
-    url: string;
+    videourl: string;
+    thumbnailurl: string;
   }
 
   const videoSchema: Schema = new Schema({
     title: {type: String, required: true},
     artist: {type: String},
     description: {type: String},
-    url: {type: String, required: true, unique: true},
+    videourl: {type: String, required: true, unique: true},
+    thumbnailurl: {type: String, required: true, unique: true},
     author: {type: Schema.Types.ObjectId, ref: 'User'}
   });
 
