@@ -60,20 +60,34 @@ namespace VideoRouter {
 
     export const router:Router = Router();
 
+    function handleVideos(videos:IVideo[],res,next) {
+        async.each(videos, (video, done) => {
+            // populate each video with its author
+            video.populate('author', done);
+        }, (popErr) => {
+            if (popErr) {
+                next(popErr);
+                return;
+            }
+            // serialize and return
+            res.status(200).json(videoSerializer.serialize(videos));
+        });
+    }
+
     router.get('/', function (req:IRequest, res:Response, next:NextFunction):void {
-        function handleVideos(videos:IVideo[]) {
-            async.each(videos, (video, done) => {
-                // populate each video with its author
-                video.populate('author', done);
-            }, (popErr) => {
-                if (popErr) {
-                    next(popErr);
-                    return;
-                }
-                // serialize and return
-                res.status(200).json(videoSerializer.serialize(videos));
-            });
-        }
+        // function handleVideos(videos:IVideo[]) {
+        //     async.each(videos, (video, done) => {
+        //         // populate each video with its author
+        //         video.populate('author', done);
+        //     }, (popErr) => {
+        //         if (popErr) {
+        //             next(popErr);
+        //             return;
+        //         }
+        //         // serialize and return
+        //         res.status(200).json(videoSerializer.serialize(videos));
+        //     });
+        // }
 
         if (req.query.author) {
             req.checkQuery('author', 'not an Object Id').isMongoId();
@@ -86,11 +100,11 @@ namespace VideoRouter {
                 return;
             }
             Video.findByAuthor(req.query.author, (err, videos) => {
-                handleVideos(videos);
+                handleVideos(videos,res,next);
             });
         } else {
             Video.findAll((err, videos:IVideo[]) => {
-                handleVideos(videos);
+                handleVideos(videos,res,next);
             });
         }
     });
@@ -128,7 +142,9 @@ namespace VideoRouter {
                         res.status(403).json({error: saveErr.toString(), success: false});
                         return;
                     }
-                    res.status(200).json(videoSerializer.serialize(mongooseVideo));
+                    Video.findAll((err, videos:IVideo[]) => {
+                        handleVideos(videos,res,next);
+                    });
                 })
 
             }
@@ -180,7 +196,9 @@ namespace VideoRouter {
             if (processErr) {
                 res.status(403).json({error: processErr.toString(), success: false});
             } else {
-                res.status(200).json({message: 'Deleted'});
+                Video.findAll((err, videos:IVideo[]) => {
+                    handleVideos(videos,res,next);
+                });
             }
         });
     });
