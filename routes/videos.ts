@@ -137,11 +137,51 @@ namespace VideoRouter {
     });
 
     router.delete('/:id', function (req:IRequest, res:Response, next:NextFunction):void {
-        Video.remove({
-            _id: req.params.id
-        }, function (err) {
-            if (err) return res.send(err);
-            res.status(200).json({message: 'Deleted'});
+
+        let prefix:string;
+        async.series([
+            (done) => {
+                Video.findById(req.params.id, (err, video) => {
+                    if (err) {
+                        next(err);
+                        done(err);
+                        return;
+                    }
+                    prefix = video.videourl.split('/')[video.videourl.split('/').length - 1].split('.')[0];
+                    done();
+                });
+            },
+            (done) => {
+                Video.remove({
+                    _id: req.params.id
+                }, function (err) {
+                    if (err) {
+                        next(err);
+                        done(err);
+                        return;
+                    }
+                    done();
+                });
+            },
+            (done) => {
+                bucket.deleteFiles({
+                    prefix: prefix
+                }, function (err) {
+                    if (err) {
+                        next(err);
+                        done(err);
+                        return;
+                    }
+                    done();
+                });
+            }
+        ], (processErr)=> {
+            prefix = null;
+            if (processErr) {
+                res.status(403).json({error: processErr.toString(), success: false});
+            } else {
+                res.status(200).json({message: 'Deleted'});
+            }
         });
     });
 
