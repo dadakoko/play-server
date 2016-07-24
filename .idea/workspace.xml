@@ -1,18 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a9c4c164-0f87-477d-8634-58a014158119" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/user.js" afterPath="$PROJECT_DIR$/models/user.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/user.js.map" afterPath="$PROJECT_DIR$/models/user.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/user.ts" afterPath="$PROJECT_DIR$/models/user.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/video.js" afterPath="$PROJECT_DIR$/models/video.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/video.js.map" afterPath="$PROJECT_DIR$/models/video.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/video.ts" afterPath="$PROJECT_DIR$/models/video.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/videos.js" afterPath="$PROJECT_DIR$/routes/videos.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/videos.js.map" afterPath="$PROJECT_DIR$/routes/videos.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/videos.ts" afterPath="$PROJECT_DIR$/routes/videos.ts" />
-    </list>
+    <list default="true" id="a9c4c164-0f87-477d-8634-58a014158119" name="Default" comment="" />
     <ignored path="play.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -449,16 +438,16 @@
       <workItem from="1468320518788" duration="2028000" />
       <workItem from="1468349194740" duration="1157000" />
       <workItem from="1468351879490" duration="45858000" />
-      <workItem from="1469187860091" duration="14900000" />
+      <workItem from="1469187860091" duration="15018000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="63943000" />
+    <option name="totallyTimeSpent" value="64061000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15856236" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
