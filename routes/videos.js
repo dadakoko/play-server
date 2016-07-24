@@ -114,6 +114,15 @@ var VideoRouter;
             });
         });
     });
+    VideoRouter.router.delete('/:id', function (req, res, next) {
+        video_1.Video.remove({
+            _id: req.params.id
+        }, function (err) {
+            if (err)
+                return res.send(err);
+            res.status(200).json({ message: 'Deleted' });
+        });
+    });
     // [START process]
     // Process the file upload and upload to Google Cloud Storage.
     VideoRouter.router.post('/upload', multer.single('file'), function (req, res, next) {
@@ -133,7 +142,7 @@ var VideoRouter;
             console.log('Screenshots taken');
             let filestoUpload = [req.file.path.split('.mov')[0] + '.png', req.file.path];
             var publicUrl = [];
-            //use async foreach here
+            //use async foreach to upload the local files to a new file to be created in your bucket.
             async.forEach(filestoUpload, (file, callback) => bucket.upload(file, function (err) {
                 if (!err) {
                     publicUrl.push(format('https://storage.googleapis.com/%s/%s', bucket.name, file.split('../uploads/')[1]));
@@ -145,26 +154,7 @@ var VideoRouter;
                 //Tell the user about the great success
                 res.status(200).send(JSON.stringify(publicUrl.sort()));
             });
-            // bucket.upload(req.file.path.split('.mov')[0] + '.png', function (err, file) {
-            //     if (!err) {
-            //         var publicUrl = format(
-            //             'https://storage.googleapis.com/%s/%s',
-            //             bucket.name, req.file.filename.split('.mov')[0] + '.png');
-            //
-            //         res.status(200).send(publicUrl);
-            //     }
-            // });
         });
-        // Upload a local file to a new file to be created in your bucket.
-        // bucket.upload(req.file.path, function(err, file) {
-        //     if (!err) {
-        //         var publicUrl = format(
-        //             'https://storage.googleapis.com/%s/%s',
-        //             bucket.name, req.file.filename);
-        //
-        //         res.status(200).send(publicUrl);
-        //     }
-        // });
     });
 })(VideoRouter || (VideoRouter = {}));
 module.exports = VideoRouter;

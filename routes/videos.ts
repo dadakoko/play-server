@@ -136,6 +136,15 @@ namespace VideoRouter {
 
     });
 
+    router.delete('/:id', function (req:IRequest, res:Response, next:NextFunction):void {
+        Video.remove({
+            _id: req.params.id
+        }, function (err) {
+            if (err) return res.send(err);
+            res.status(200).json({message: 'Deleted'});
+        });
+    });
+
 
     // [START process]
     // Process the file upload and upload to Google Cloud Storage.
@@ -160,9 +169,9 @@ namespace VideoRouter {
 
             let filestoUpload = [req.file.path.split('.mov')[0] + '.png', req.file.path];
             var publicUrl:string[] = [];
-            //use async foreach here
+            //use async foreach to upload the local files to a new file to be created in your bucket.
             async.forEach(filestoUpload,
-                (file,callback)=>bucket.upload(file, function (err) {
+                (file, callback)=>bucket.upload(file, function (err) {
                     if (!err) {
                         publicUrl.push(format(
                             'https://storage.googleapis.com/%s/%s',
@@ -176,28 +185,7 @@ namespace VideoRouter {
                     res.status(200).send(JSON.stringify(publicUrl.sort()));
                 });
 
-            // bucket.upload(req.file.path.split('.mov')[0] + '.png', function (err, file) {
-            //     if (!err) {
-            //         var publicUrl = format(
-            //             'https://storage.googleapis.com/%s/%s',
-            //             bucket.name, req.file.filename.split('.mov')[0] + '.png');
-            //
-            //         res.status(200).send(publicUrl);
-            //     }
-            // });
         });
-
-        // Upload a local file to a new file to be created in your bucket.
-
-        // bucket.upload(req.file.path, function(err, file) {
-        //     if (!err) {
-        //         var publicUrl = format(
-        //             'https://storage.googleapis.com/%s/%s',
-        //             bucket.name, req.file.filename);
-        //
-        //         res.status(200).send(publicUrl);
-        //     }
-        // });
 
 
     });
