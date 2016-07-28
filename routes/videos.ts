@@ -75,20 +75,6 @@ namespace VideoRouter {
     }
 
     router.get('/', function (req:IRequest, res:Response, next:NextFunction):void {
-        // function handleVideos(videos:IVideo[]) {
-        //     async.each(videos, (video, done) => {
-        //         // populate each video with its author
-        //         video.populate('author', done);
-        //     }, (popErr) => {
-        //         if (popErr) {
-        //             next(popErr);
-        //             return;
-        //         }
-        //         // serialize and return
-        //         res.status(200).json(videoSerializer.serialize(videos));
-        //     });
-        // }
-
         if (req.query.author) {
             req.checkQuery('author', 'not an Object Id').isMongoId();
             let errors:Dictionary<any> = req.validationErrors();
@@ -142,7 +128,7 @@ namespace VideoRouter {
                         res.status(403).json({error: saveErr.toString(), success: false});
                         return;
                     }
-                    Video.findAll((err, videos:IVideo[]) => {
+                    Video.findByAuthor(video.author, (err, videos) => {
                         handleVideos(videos,res,next);
                     });
                 })
@@ -155,6 +141,7 @@ namespace VideoRouter {
     router.delete('/:id', function (req:IRequest, res:Response, next:NextFunction):void {
 
         let prefix:string;
+        let authorId:string;
         async.series([
             (done) => {
                 Video.findById(req.params.id, (err, video) => {
@@ -164,6 +151,8 @@ namespace VideoRouter {
                         return;
                     }
                     prefix = video.videourl.split('/')[video.videourl.split('/').length - 1].split('.')[0];
+                    authorId=video.author.toString();
+                    
                     done();
                 });
             },
@@ -196,7 +185,7 @@ namespace VideoRouter {
             if (processErr) {
                 res.status(403).json({error: processErr.toString(), success: false});
             } else {
-                Video.findAll((err, videos:IVideo[]) => {
+                Video.findByAuthor(authorId, (err, videos) => {
                     handleVideos(videos,res,next);
                 });
             }

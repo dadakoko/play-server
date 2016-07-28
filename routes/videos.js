@@ -60,19 +60,6 @@ var VideoRouter;
         });
     }
     VideoRouter.router.get('/', function (req, res, next) {
-        // function handleVideos(videos:IVideo[]) {
-        //     async.each(videos, (video, done) => {
-        //         // populate each video with its author
-        //         video.populate('author', done);
-        //     }, (popErr) => {
-        //         if (popErr) {
-        //             next(popErr);
-        //             return;
-        //         }
-        //         // serialize and return
-        //         res.status(200).json(videoSerializer.serialize(videos));
-        //     });
-        // }
         if (req.query.author) {
             req.checkQuery('author', 'not an Object Id').isMongoId();
             let errors = req.validationErrors();
@@ -123,7 +110,7 @@ var VideoRouter;
                     res.status(403).json({ error: saveErr.toString(), success: false });
                     return;
                 }
-                video_1.Video.findAll((err, videos) => {
+                video_1.Video.findByAuthor(video.author, (err, videos) => {
                     handleVideos(videos, res, next);
                 });
             });
@@ -131,6 +118,7 @@ var VideoRouter;
     });
     VideoRouter.router.delete('/:id', function (req, res, next) {
         let prefix;
+        let authorId;
         async.series([
                 (done) => {
                 video_1.Video.findById(req.params.id, (err, video) => {
@@ -140,6 +128,7 @@ var VideoRouter;
                         return;
                     }
                     prefix = video.videourl.split('/')[video.videourl.split('/').length - 1].split('.')[0];
+                    authorId = video.author.toString();
                     done();
                 });
             },
@@ -173,7 +162,7 @@ var VideoRouter;
                 res.status(403).json({ error: processErr.toString(), success: false });
             }
             else {
-                video_1.Video.findAll((err, videos) => {
+                video_1.Video.findByAuthor(authorId, (err, videos) => {
                     handleVideos(videos, res, next);
                 });
             }
